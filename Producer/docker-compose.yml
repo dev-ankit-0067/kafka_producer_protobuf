@@ -1,0 +1,28 @@
+version: '2.1'
+services:
+  zookeeper-1:
+    image: confluent/zookeeper:latest
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:2888:3888
+    network_mode: host
+    extra_hosts:
+      - "ankit-VirtualBox:127.0.0.1"
+
+  kafka-1:
+    image: confluent/kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    ports:
+      - "9092:9092"
+    extra_hosts:
+      - "ankit-VirtualBox:127.0.0.1"

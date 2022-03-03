@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package transactions;
+
+message Transaction{
+     string transaction_id = 1 ;
+     string account_number = 2;
+     string transaction_referance = 3;
+     string transaction_datetime = 4;
+     double amount = 5;
+}
